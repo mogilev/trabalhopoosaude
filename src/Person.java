@@ -1,14 +1,16 @@
 
-public abstract class Person {
-	private String personName;
-
-	public String getPersonName() {
-		return personName;
+public class Person {
+	public String name;
+	
+	public Person(String name) {
+		this.name = name;
 	}
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
+
+	public String getName() {
+		return this.name;
 	}
+
 	
 	
 }
