@@ -4,7 +4,9 @@ public interface HealthUnit {
 	
 	boolean hasCategory(String professionalCat); // Verifica se existe determinada categoria profissional
 	
-	void createProfessional(String professionalCat, String professionalName); // Adiciona novo profissional
+	void createProfessional(Category professionalCat, String professionalName); // Adiciona novo profissional
+	
+	void createClient(String clientName, AgeGroup clientAgeGroup); // Adiciona novo utente
 	
 	boolean hasClient(String clientName); // Verifica se já existe esse cliente pelo seu nome
 	

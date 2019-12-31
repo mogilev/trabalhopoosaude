@@ -1,12 +1,13 @@
 
 public class ClientClass extends Person implements Client {
 	private FamilyClass family;
-	private String ageGroup;
+	private AgeGroup ageGroup;
 	
 
-	public ClientClass(String name, String ageGroup) {
+	public ClientClass(String name, AgeGroup ageGroup) {
 		super(name);
 		this.ageGroup = ageGroup;
+		this.name = name;
 	}
 
 	public FamilyClass getFamily() {
@@ -18,7 +19,7 @@ public class ClientClass extends Person implements Client {
 	}
 
 	public String getAgeGroup() {
-		return ageGroup;
+		return this.ageGroup.name(); //verificar se assim conseguimos "ver" o enum associado ao objecto
 	}
 
 

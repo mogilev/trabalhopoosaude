@@ -91,7 +91,7 @@ public class Program {
 			System.out.println("Faixa etária inexistente.");	
 		}
 		else {
-			// ver como criar utente int readerCode = library.createProfessional(professionalCat, professionalName);
+			// ver como criar utente int readerCode = HealthUnit.createClient(clientName, clientAgeGroup);
 			System.out.println("Utente registado com sucesso.");
 				}
 		}
