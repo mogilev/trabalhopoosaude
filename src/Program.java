@@ -76,7 +76,7 @@ public class Program {
 			System.out.println("Categoria inexistente.");	
 		}
 		else {
-		// ver como criar profissional int readerCode = healthUnit.createProfessional(professionalCat, professionalName);
+		// ver como criar profissional int professionalCode = healthUnit.createProfessional(professionalCat, professionalName);
 			System.out.println("Profissional registado com sucesso.");
 				}
 		}
@@ -91,7 +91,7 @@ public class Program {
 			System.out.println("Faixa etária inexistente.");	
 		}
 		else {
-			// ver como criar utente int readerCode = HealthUnit.createClient(clientName, clientAgeGroup);
+			// ver como criar utente int clientCode = HealthUnit.createClient(clientName, clientAgeGroup);
 			System.out.println("Utente registado com sucesso.");
 				}
 		}
@@ -102,7 +102,7 @@ public class Program {
 			System.out.println("Família existente.");
 					}
 		else {
-			// ver como criar int familyCode = library.createReader(familyName);
+			// ver como criar int familyCode = HealthUnit.createFamily(familyName);
 			System.out.println("Família registada com sucesso.");
 				}
 		}
