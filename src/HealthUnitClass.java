@@ -12,6 +12,7 @@ public class HealthUnitClass implements HealthUnit {
 		this.clientList = new ArrayList<Client>();
 		this.healthProfessionalList = new ArrayList<HealthProfessional>();
 		this.appointmentList = new ArrayList<Appointment>();
+		this.familyList = new ArrayList<Family>();
 	}
 	
 
