@@ -69,14 +69,15 @@ public class Program {
 	private static void commandRP(HealthUnit healthUnit, String[] commands) {
 		String professionalCat = commands[1];
 		String professionalName = commands[2];
-		if(healthUnit.hasProfessional(professionalCat, professionalName)) {
+		if(healthUnit.hasProfessional(Category.valueOf(professionalCat), professionalName)) {
 			System.out.println("Profissional existente.");
 					}
-		else if(healthUnit.hasCategory(professionalCat) == false) {
+		else if(!healthUnit.hasCategory(professionalCat)) { //verificar se não precisa do "value of"
 			System.out.println("Categoria inexistente.");	
 		}
 		else {
-		// ver como criar profissional int professionalCode = healthUnit.createProfessional(professionalCat, professionalName);
+		// ver como criar profissional 
+			int professional = healthUnit.createProfessional(Category.valueOf(professionalCat), professionalName);
 			System.out.println("Profissional registado com sucesso.");
 				}
 		}
@@ -91,7 +92,8 @@ public class Program {
 			System.out.println("Faixa etária inexistente.");	
 		}
 		else {
-			// ver como criar utente int clientCode = HealthUnit.createClient(clientName, clientAgeGroup);
+			// ver como criar utente 
+			int cliente = healthUnit.createClient(clientName, AgeGroup.valueOf(clientAgeGroup));
 			System.out.println("Utente registado com sucesso.");
 				}
 		}
@@ -232,7 +234,7 @@ public class Program {
 	private static void commandLSP(HealthUnit healthUnit, String[] commands) {
 		String professionalCat = commands[1];
 		String professionalName = commands[2];		
-		if(healthUnit.hasProfessional(professionalCat, professionalName) == false) {
+		if(healthUnit.hasProfessional(Category.valueOf(professionalCat), professionalName) == false) {
 			System.out.println("Profissional de saúde inexistente.");
 			}
 		// TODO 

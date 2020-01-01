@@ -16,7 +16,7 @@ public class HealthUnitClass implements HealthUnit {
 	
 
 	@Override
-	public boolean hasProfessional(String professionalCat, String professionalName) {
+	public boolean hasProfessional(Category professionalCat, String professionalName) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -28,9 +28,9 @@ public class HealthUnitClass implements HealthUnit {
 	}
 
 	@Override
-	public void createProfessional(Category professionalCat, String professionalName) {
+	public int createProfessional(Category professionalCat, String professionalName) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
@@ -58,15 +58,15 @@ public class HealthUnitClass implements HealthUnit {
 	}
 
 	@Override
-	public void createClient(String clientName, AgeGroup clientAgeGroup) {
+	public int createClient(String clientName, AgeGroup clientAgeGroup) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
-	public void createFamily(String familyName) {
+	public int createFamily(String familyName) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 

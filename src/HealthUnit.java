@@ -2,15 +2,15 @@ import java.util.List;
 
 public interface HealthUnit {
 
-	boolean hasProfessional(String professionalCat, String professionalName); // Verifica se já existe profissional com determinado nome e cateoria profissional
+	boolean hasProfessional(Category professionalCat, String professionalName); // Verifica se já existe profissional com determinado nome e cateoria profissional
 	
 	boolean hasCategory(String professionalCat); // Verifica se existe determinada categoria profissional
 	
-	void createProfessional(Category professionalCat, String professionalName); // Adiciona novo profissional
+	int createProfessional(Category professionalCat, String professionalName); // Adiciona novo profissional
 	
-	void createClient(String clientName, AgeGroup clientAgeGroup); // Adiciona novo utente
+	int createClient(String clientName, AgeGroup clientAgeGroup); // Adiciona novo utente
 	
-	void createFamily(String familyName); // Adiciona nova família
+	int createFamily(String familyName); // Adiciona nova família
 	
 	boolean hasClient(String clientName); // Verifica se já existe esse cliente pelo seu nome
 	
