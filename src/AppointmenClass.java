@@ -4,4 +4,6 @@ public class AppointmenClass {
 	private Service service;
 	private HealthProfessional healthProfessional;
 	
+	
+	
 }

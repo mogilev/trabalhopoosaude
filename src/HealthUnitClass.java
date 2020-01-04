@@ -17,39 +17,59 @@ public class HealthUnitClass implements HealthUnit {
 	
 
 	@Override
-	public boolean hasProfessional(Category professionalCat, String professionalName) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasProfessional(String professionalCat, String professionalName) {
+		for(HealthProfessional healthProfessional : this.getProfessionalList()) {
+            if(healthProfessional.getName() == professionalName && healthProfessional.getCategory() == professionalCat){
+                return true; 
+                }
+            }
+            return false;
 	}
 
 	@Override
-	public boolean hasCategory(String professionalCat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean categoryExists(String professionalCat) {
+		for (Category category : Category.values()) {
+        	if (category.name().equals(professionalCat)) {
+                return true;
+	}	}
+            return false;}
 
-	@Override
-	public int createProfessional(Category professionalCat, String professionalName) {
-		// TODO Auto-generated method stub
+	
+	public int createProfessional(String professionalCat, String professionalName) {
+		Category category = Category.valueOf(professionalCat);
+        HealthProfessional healthProfessional = (HealthProfessional) new HealthProfessionalClass(category, professionalName);
+        healthProfessionalList.add((HealthProfessional) healthProfessional);
 		return 0;
 	}
 
 	@Override
 	public boolean hasClient(String clientName) {
-		// TODO Auto-generated method stub
-		return false;
+        for(Client client : this.getClientList()) {
+            if(client.getName() == clientName){
+            return true; 
+            }
+        }
+        return false;
 	}
 
 	@Override
-	public boolean hasAgeGroup(String clientAgeGroup) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean ageGroupExists(String clientAgeGroup) {
+        for (AgeGroup ageGroup : AgeGroup.values()) {
+            if (ageGroup.name().equals(clientAgeGroup)) {
+                return true;
+            	}
+        	}
+        return false;
+    } 
 
 	@Override
 	public boolean familyExists(String familyName) {
-		// TODO Auto-generated method stub
-		return false;
+		for(Family family : this.getFamilyList()) {
+            if(family.getFamilyName() == familyName){
+                return true; 
+                }
+            }
+            return false;
 	}
 
 	@Override
@@ -59,43 +79,42 @@ public class HealthUnitClass implements HealthUnit {
 	}
 
 	@Override
-	public int createClient(String clientName, AgeGroup clientAgeGroup) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createClient(String clientName, String clientAgeGroup) {
+        AgeGroup ageGroup = AgeGroup.valueOf(clientAgeGroup);
+        Client client = (Client) new ClientClass(clientName, ageGroup);
+        clientList.add((Client) client);
+        return 0;
 	}
 
 	@Override
 	public int createFamily(String familyName) {
-		// TODO Auto-generated method stub
+		Family family = (Family) new FamilyClass(familyName);
+		familyList.add(family);
 		return 0;
 	}
 
 
 	@Override
 	public List<HealthProfessional> getProfessionalList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.healthProfessionalList;
 	}
 
 
 	@Override
 	public List<Client> getClientList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.clientList;
 	}
 
 
 	@Override
 	public List<Appointment> getAppointmentList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.appointmentList;
 	}
 
 
 	@Override
 	public List<Family> getFamilyList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.familyList;
 	}
 
 		

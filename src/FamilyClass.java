@@ -8,8 +8,7 @@ public class FamilyClass implements Family {
 
 	@Override
 	public String getFamilyName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nome;
 	}
 	
 }

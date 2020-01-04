@@ -1,14 +1,14 @@
 
-public class HealthProfessionalClass extends Person{
+public class HealthProfessionalClass extends Person implements HealthProfessional{
 	private Category category;
 
-	public HealthProfessionalClass(String name, Category category) {
+	public HealthProfessionalClass(Category category, String name) {
 		super(name);
 		this.category = category;
 	}
 
-	public Category getCategory() {
-		return category;
+	public String getCategory() {
+        return this.category.toString();
 	}
 
 
