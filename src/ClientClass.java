@@ -1,25 +1,25 @@
 
 public class ClientClass extends Person implements Client {
-	private FamilyClass family;
+	private Family family;
 	private AgeGroup ageGroup;
 	
 
 	public ClientClass(String name, AgeGroup ageGroup) {
 		super(name);
 		this.ageGroup = ageGroup;
-		this.name = name;
 	}
 
-	public FamilyClass getFamily() {
-		return family;
+	public Family getFamily() {
+		return this.family;
 	}
 
-	public void setFamily(FamilyClass family) {
-		this.family = family;
+    public Family setFamily(Family family) {
+    	this.family = family;
+        return this.family;
 	}
 
 	public String getAgeGroup() {
-		return this.ageGroup.name(); //verificar se assim conseguimos "ver" o enum associado ao objecto
+		return this.ageGroup.toString(); //verificar se assim conseguimos "ver" o enum associado ao objecto
 	}
 
 

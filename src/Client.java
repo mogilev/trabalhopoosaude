@@ -5,8 +5,8 @@ public interface Client {
 	
 	String getAgeGroup();
 	
-	FamilyClass getFamily();
+	Family getFamily();
 	
-	void setFamily(FamilyClass family);
+	Family setFamily(Family family);
 	 
 }

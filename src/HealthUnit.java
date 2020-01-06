@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface HealthUnit {
 
-	boolean hasProfessional(String professionalCat, String professionalName); // Verifica se já existe profissional com determinado nome e cateoria profissional
+	boolean hasProfessional(String professionalCat, String professionalName); // Verifica se já existe profissional com determinado nome e categoria profissional
 	
 	boolean categoryExists(String professionalCat); // Verifica se existe determinada categoria profissional
 	
@@ -20,7 +20,20 @@ public interface HealthUnit {
 	
 	boolean hasFamily(String clientName); // Verifica se determinado cliente tem família associada
 	
+	int joinFamily(String clientName, String familyName); // Associa um utente a uma família
 	
+	int leaveFamily(String clientName); // Retira a associação de um utente a família
+	
+    void showProfessionals();
+    
+    boolean serviceExists(String serviceName); // Verifica se existe determinado serviço médico
+	
+    boolean clientHasAppointments (String clientName);
+    
+    int createAppointment(String clientName,String serviceName,String healthProfessionalName, String healthProfessionalCategory );
+
+    int cancelAppointment(String clientName);
+    
 	// Manuseamento das listas:
 	
 	// Profissionais:

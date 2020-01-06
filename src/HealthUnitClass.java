@@ -74,10 +74,48 @@ public class HealthUnitClass implements HealthUnit {
 
 	@Override
 	public boolean hasFamily(String clientName) {
-		// TODO Auto-generated method stub
-		return false;
+    	for(Client client : this.getClientList()) {
+            if(client.getName()== clientName){
+                if (client.getFamily() != null){
+                    return true; 
+                }     
+            }
+    	}	
+        return false;
+    }
+	
+	
+	public int joinFamily(String clientName, String familyName) {
+        for(Client client : this.getClientList()) {
+            if (client.getName() == clientName){
+                for (Family family : this.getFamilyList()){
+                    if (family.getFamilyName() == familyName){
+                        client.setFamily(family); 
+                    }
+                }
+            }
+        }
+        return 0;
 	}
 
+	
+    public int leaveFamily(String clientName){
+        for(Client client : this.getClientList()) {
+            if (client.getName() == clientName){
+                client.setFamily(null); 
+            }
+        } 
+        return 0;
+    }
+	
+    
+    public void showProfessionals(){
+        for (HealthProfessional healthProfessional : this.getProfessionalList()){
+            System.out.println(healthProfessional.getName() + " " + healthProfessional.getCategory()); 
+        }
+    }
+    
+    
 	@Override
 	public int createClient(String clientName, String clientAgeGroup) {
         AgeGroup ageGroup = AgeGroup.valueOf(clientAgeGroup);
@@ -117,5 +155,58 @@ public class HealthUnitClass implements HealthUnit {
 		return this.familyList;
 	}
 
+
+	@Override
+	public boolean serviceExists(String serviceName) {
+        for (Category category : Category.values()) {
+            if (category.name().equals(serviceName)) {
+                return true;
+                }
+            }
+        return false;
+    }
+
+
+	@Override
+	public boolean clientHasAppointments(String clientName) {
+	    	for(Appointment appointment : this.getAppointmentList()) {
+	            if(appointment.getClientName() == clientName){
+	                    return true; 
+	                }     
+	            }
+	    	return false;
+	    }
+
+
+	@Override
+	public int createAppointment(String clientName, String serviceName, String healthProfessionalName, String healthProfessionalCategory ) {
+		// TODO Auto-generated method stub
+		for (Client client : this.clientList) {
+			if (client.getName() == clientName) {				
+				for (HealthProfessional healthProfessional : this.healthProfessionalList) {
+					if(healthProfessional.getName() == healthProfessionalName && healthProfessional.getCategory() == healthProfessionalCategory) {
+						Service service = Service.valueOf(serviceName);
+						Appointment appointment = (Appointment) new AppointmentClass(client, service, healthProfessional);
+						appointmentList.add((Appointment) appointment);			
+						}
+					}
+				}
+			}
+		return 0;
+		}
+	
+
+	@Override
+	public int cancelAppointment(String clientName) {
+		for (Appointment appointment : this.getAppointmentList()) {
+			if (appointment.getClientName() == clientName)
+				this.appointmentList.remove(appointment);
+		}		
+		return 0;
+	}
+
+	
+
+	
 		
 }

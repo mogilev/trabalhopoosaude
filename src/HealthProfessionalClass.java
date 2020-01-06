@@ -10,9 +10,6 @@ public class HealthProfessionalClass extends Person implements HealthProfessiona
 	public String getCategory() {
         return this.category.toString();
 	}
-
-
-	
 	
 	
 }

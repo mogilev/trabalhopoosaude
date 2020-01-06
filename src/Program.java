@@ -115,14 +115,14 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		if(healthUnit.hasClient(clientName) == false) {
 			System.out.println("Utente inexistente.");
 					}
-		else if(healthUnit.familyExists(familyName) == false) {
+		else if(!healthUnit.familyExists(familyName)) {
 			System.out.println("Família inexistente.");	
 		}
 		else if(healthUnit.hasFamily(clientName)) {
 			System.out.println("Utente pertence a família.");	
 		}
 		else {
-			// ver como associar cliente a família int readerCode = library.createProfessional(professionalCat, professionalName);
+			healthUnit.joinFamily(clientName, familyName);
 			System.out.println("Utente associado a família.");
 				}
 		}
@@ -133,21 +133,23 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		if(healthUnit.hasClient(clientName) == false) {
 			System.out.println("Utente inexistente.");
 					}
-		else if(healthUnit.hasFamily(clientName) == false) {
+		else if(!healthUnit.hasFamily(clientName)) {
 			System.out.println("Utente não pertence a família.");	
 		}
 		else {
-			// ver como desassociar cliente a família(setfamilyname=0) int readerCode = library.createProfessional(professionalCat, professionalName);
+			healthUnit.leaveFamily(clientName);
 			System.out.println("Utente desassociado a família.");
 				}
 		}	
 	
+	
 	private static void commandLP(HealthUnit healthUnit) {
-		// TODO 
-	/* 
-	 * usando o isEmpty
-	 * System.out.println("Sem profissionais registados.");
-	 */
+		if (healthUnit.getProfessionalList().isEmpty()) {
+			System.out.println("Sem profissionais registados");
+			}
+		else {
+		
+			}
 		}
 
 	private static void commandLU(HealthUnit healthUnit) {
@@ -179,13 +181,46 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		String clientName = commands[1];
 		if(healthUnit.hasClient(clientName) == false) {
 			System.out.println("Utente inexistente.");
-		}
-		// TODO 
-/*		else {
-			String[] parameters = scanner.nextLine().split(" ");
-			String 
-			} */
-		}
+		} 
+		else { //TODO
+			boolean precConsulta = false; //ver se é por aqui
+			boolean precCirurgia = false; //ver se é por aqui
+			while(scanner.hasNextLine()) {
+				String input = scanner.nextLine();
+				if(!input.isBlank()) {
+					String[] parameters = scanner.nextLine().split(" ");
+					String service = parameters[0];
+					if (!healthUnit.serviceExists(service)) {
+						System.out.println("Serviço inexistente.");
+						}
+					else {
+						String[] parameters1 = scanner.nextLine().split(" ");
+						String categoria = parameters1[0];
+						String nomeProfissional = parameters1[1];
+						if (!healthUnit.categoryExists(categoria)) {
+							System.out.println("Categoria inexistente.");
+						}
+						else if (!healthUnit.hasProfessional(categoria, nomeProfissional)) {
+							System.out.println("Profissional de saúde inexistente.");
+						}
+						else {
+							// confirmar se o profissional pode realizar o acto 
+							// System.out.println("Categoria inválida.");
+						if (service == "Consulta" || service == "Enfermagem") {	
+							//marcar consulta aqui
+							precConsulta = true;
+						}
+						else { //cirurgia, onde é necessário verificar precedência
+							if (precConsulta == true) {
+							// marcar cirurgia aqui
+								precCirurgia = true;
+							}
+						}}
+					}}
+				
+			//necessário confirmar as precedências
+			 } }}
+
 
 		
 	private static void commandCC(HealthUnit healthUnit, String[] commands) {
@@ -193,14 +228,14 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		if(healthUnit.hasClient(clientName) == false) {
 			System.out.println("Utente inexistente.");
 			}
-		// TODO 
-		/* else if(){
-		 * 			System.out.println("Utente sem cuidados de saúde marcados.");}
-		 * else{
-		 * 			System.out.println("Cuidados de saúde desmarcados com sucesso.");}
-		 * 
-		 */ 
-			}
+		else if(!healthUnit.clientHasAppointments(clientName)){
+			System.out.println("Utente sem cuidados de saúde marcados."); }
+		else{
+			healthUnit.cancelAppointment(clientName);
+			System.out.println("Cuidados de saúde desmarcados com sucesso.");
+			}		  
+		}
+	
 	
 	private static void commandLCU(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
