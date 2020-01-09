@@ -76,7 +76,7 @@ public class Program {
 			System.out.println("Categoria inexistente.");	
 		}
 		else {
-/*ver se funca sem isto- int professional = */healthUnit.createProfessional(professionalCat, professionalName);
+			healthUnit.createProfessional(professionalCat, professionalName);
 			System.out.println("Profissional registado com sucesso.");
 				}
 		}
@@ -148,7 +148,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			System.out.println("Sem profissionais registados");
 			}
 		else {
-		
+			healthUnit.listarProTeste();
 			}
 		}
 

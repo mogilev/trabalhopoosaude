@@ -19,11 +19,11 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean hasProfessional(String professionalCat, String professionalName) {
 		for(HealthProfessional healthProfessional : this.getProfessionalList()) {
-            if(healthProfessional.getName() == professionalName && healthProfessional.getCategory() == professionalCat){
-                return true; 
+            if(healthProfessional.getName().equals(professionalName) && healthProfessional.getCategory().contentEquals(professionalCat)){
+                return true;
                 }
             }
-            return false;
+			return false;
 	}
 
 	@Override
@@ -203,6 +203,17 @@ public class HealthUnitClass implements HealthUnit {
 				this.appointmentList.remove(appointment);
 		}		
 		return 0;
+	}
+
+
+	@Override
+	public void listarProTeste() {
+		for (HealthProfessional healthProfessional : this.getProfessionalList()) {
+			System.out.println(healthProfessional.getName() + healthProfessional.getCategory());
+		}		
+
+	
+		
 	}
 
 	

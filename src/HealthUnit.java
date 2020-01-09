@@ -34,6 +34,8 @@ public interface HealthUnit {
 
     int cancelAppointment(String clientName);
     
+    void listarProTeste();
+    
 	// Manuseamento das listas:
 	
 	// Profissionais:
