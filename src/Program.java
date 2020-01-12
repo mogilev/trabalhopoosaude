@@ -156,7 +156,6 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		}
 
 	private static void commandLU(HealthUnit healthUnit) {
-		// TODO 
 		if (healthUnit.getClientList().isEmpty()) {
 			System.out.println("Sem utentes registados.");
 		}
@@ -194,43 +193,67 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			System.out.println("Utente inexistente.");
 		} 
 		else { //TODO
-			boolean precConsulta = false; //ver se é por aqui
-			boolean precCirurgia = false; //ver se é por aqui
-			while(scanner.hasNextLine()) {
-				String input = scanner.nextLine();
-				if(!input.isBlank()) {
-					String[] parameters = scanner.nextLine().split(" ");
+//			boolean precConsulta = false; //ver se é por aqui
+//			boolean precCirurgia = false; //ver se é por aqui
+//			while(scanner.hasNextLine()) {
+//				String input = scanner.nextLine();
+				String[] parameters = scanner.nextLine().split(" ");
+	//			if(!input.isBlank()) {
+					
 					String service = parameters[0];
 					if (!healthUnit.serviceExists(service)) {
 						System.out.println("Serviço inexistente.");
 						}
 					else {
+						System.out.println("Serviço existente.");
 						String[] parameters1 = scanner.nextLine().split(" ");
-						String categoria = parameters1[0];
+						String category = parameters1[0]; //antes era "categoria", confirmar se continua a funcionar
 						String nomeProfissional = parameters1[1];
-						if (!healthUnit.categoryExists(categoria)) {
+						if (!healthUnit.categoryExists(category)) {
 							System.out.println("Categoria inexistente.");
 						}
-						else if (!healthUnit.hasProfessional(categoria, nomeProfissional)) {
+						else if (!healthUnit.hasProfessional(category, nomeProfissional)) {
 							System.out.println("Profissional de saúde inexistente.");
-						}
+//						}
+					}
 						else {
+							System.out.println("Profissional de saúde existente.");
+							if (!healthUnit.serviceRulesCheck(service, category)) {
+								System.out.println("Categoria inválida.");
+							}
+							else {
+								System.out.println("Categoria válida.");
+								
+							}
+						}
+//						String[] parameters1 = scanner.nextLine().split(" ");
+//						String categoria = parameters1[0];
+//						String nomeProfissional = parameters1[1];
+//						if (!healthUnit.categoryExists(categoria)) {
+//							System.out.println("Categoria inexistente.");
+//						}
+//						else if (!healthUnit.hasProfessional(categoria, nomeProfissional)) {
+//							System.out.println("Profissional de saúde inexistente.");
+//						}
+//						else {
 							// confirmar se o profissional pode realizar o acto 
 							// System.out.println("Categoria inválida.");
-						if (service == "Consulta" || service == "Enfermagem") {	
+//						if (service == "Consulta" || service == "Enfermagem") {	
 							//marcar consulta aqui
-							precConsulta = true;
-						}
-						else { //cirurgia, onde é necessário verificar precedência
-							if (precConsulta == true) {
+//							precConsulta = true;
+//						}
+//						else { //cirurgia, onde é necessário verificar precedência
+//							if (precConsulta == true) {
 							// marcar cirurgia aqui
-								precCirurgia = true;
-							}
-						}}
-					}}
+//								precCirurgia = true;
+//							}
+//						}}
+//					}}
 				
 			//necessário confirmar as precedências
-			 } }}
+			 } 
+				//}
+	}}
 
 
 		

@@ -160,8 +160,8 @@ public class HealthUnitClass implements HealthUnit {
 
 	@Override
 	public boolean serviceExists(String serviceName) {
-        for (Category category : Category.values()) {
-            if (category.name().equals(serviceName)) {
+        for (Service service : Service.values()) {
+            if (service.name().contentEquals(serviceName)) {
                 return true;
                 }
             }
@@ -317,6 +317,25 @@ public class HealthUnitClass implements HealthUnit {
         for (HealthProfessional healthprofessional :  this.getProfessionalList()){
         	System.out.println(healthprofessional.getCategoryName() + " " + healthprofessional.getName());
         	}
+	}
+
+
+	@Override
+	public boolean serviceRulesCheck(String service, String category) {
+		if (service.contentEquals("Consulta")&& category.contentEquals("Medicina")){
+				return true;
+		}
+		else if (service.contentEquals("PequenaCirurgia")) {
+			if (category.contentEquals("Medicina") || category.contentEquals("Enfermagem") || category.contentEquals("Auxiliar")) {
+				return true;
+			}
+		}
+		else if (service.contentEquals("Enfermagem")) {
+			if (category.contentEquals("Enfermagem") || category.contentEquals("Auxiliar")) {
+				return true;
+			}
+		}
+		return false;
 	}
     
 

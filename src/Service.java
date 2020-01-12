@@ -2,7 +2,5 @@
  * existir como classe, ou mesmo como enum 
  */
 public enum Service {
-	Consulta,
-	PequenaCirurgia,
-	Enfermagem
+	Consulta, PequenaCirurgia, Enfermagem
 }

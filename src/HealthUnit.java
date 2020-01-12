@@ -32,6 +32,8 @@ public interface HealthUnit {
 	
     boolean clientHasAppointments (String clientName);
     
+    boolean serviceRulesCheck(String service, String category);
+    
     int createAppointment(String clientName,String serviceName,String healthProfessionalName, String healthProfessionalCategory );
 
     int cancelAppointment(String clientName);
