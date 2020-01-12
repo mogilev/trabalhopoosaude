@@ -103,7 +103,7 @@ public class HealthUnitClass implements HealthUnit {
 	
     public int leaveFamily(String clientName){
         for(Client client : this.getClientList()) {
-            if (client.getName() == clientName){
+            if (client.getName().contentEquals(clientName)){
                 client.setFamily(null); 
             }
         } 
@@ -172,7 +172,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean clientHasAppointments(String clientName) {
 	    	for(Appointment appointment : this.getAppointmentList()) {
-	            if(appointment.getClientName() == clientName){
+	            if(appointment.getClientName().contentEquals(clientName)){
 	                    return true; 
 	                }     
 	            }
@@ -184,9 +184,9 @@ public class HealthUnitClass implements HealthUnit {
 	public int createAppointment(String clientName, String serviceName, String healthProfessionalName, String healthProfessionalCategory ) {
 		// TODO Auto-generated method stub
 		for (Client client : this.clientList) {
-			if (client.getName() == clientName) {				
+			if (client.getName().contentEquals(clientName)) {				
 				for (HealthProfessional healthProfessional : this.healthProfessionalList) {
-					if(healthProfessional.getName() == healthProfessionalName && healthProfessional.getCategoryName() == healthProfessionalCategory) {
+					if(healthProfessional.getName().contentEquals(healthProfessionalName) && healthProfessional.getCategoryName().contentEquals(healthProfessionalCategory)) {
 						Service service = Service.valueOf(serviceName);
 						Appointment appointment = (Appointment) new AppointmentClass(client, service, healthProfessional);
 						appointmentList.add((Appointment) appointment);			
@@ -201,7 +201,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public int cancelAppointment(String clientName) {
 		for (Appointment appointment : this.getAppointmentList()) {
-			if (appointment.getClientName() == clientName)
+			if (appointment.getClientName().contentEquals(clientName))
 				this.appointmentList.remove(appointment);
 		}		
 		return 0;
@@ -337,10 +337,84 @@ public class HealthUnitClass implements HealthUnit {
 		}
 		return false;
 	}
-    
 
+
+	@Override
+	public void listClientAppointments(String clientName) {
+		List<Appointment> appointmentsList = new ArrayList<Appointment>();
+		for (Appointment appointment :  this.getAppointmentList()) {
+			if (appointment.getClientName().contentEquals(clientName)) {
+				appointmentsList.add(appointment);
+			}
+		}
+		Collections.sort(appointmentsList, 
+				new Comparator<Appointment>() {
+        			public int compare(Appointment a1, Appointment a2) {
+        			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
+        		    int ServCompare = a1.getService().compareTo(a2.getService()); 
+        		    // 2-level comparison using if-else block - 
+        		    if (ServCompare == 0) { 
+        		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
+        		  } else { 
+        		    	return ServCompare; 
+        		            }  
+        		        } 
+        	 	});
+		if (appointmentsList.isEmpty()) {
+	    	System.out.println("Lista clients vazia!");
+	    	}
+		else {
+			for (Appointment appointment : appointmentsList){     	     	
+				System.out.println(appointment.getService().toString() + " " + appointment.getHealthProfessional().getCategoryName() + " " + appointment.getHealthProfessional().getName());	
+	        }
+	    }			
+	}
+
+
+	@Override
+	public boolean familyHasAppointments(String familyName) {
+		for(Appointment appointment : this.getAppointmentList()) {
+			if(appointment.getClient().getFamilyName().contentEquals(familyName)){
+				return true; 
+			}     
+		}
+		return false;
+	}
+
+
+	@Override
+	public void listFamilyAppointments(String familyName) {
+			List<Appointment> appointmentsList = new ArrayList<Appointment>();
+			for (Appointment appointment :  this.getAppointmentList()) {
+				if (appointment.getClient().getFamilyName().contentEquals(familyName)) {
+					appointmentsList.add(appointment);
+				}
+			}
+			Collections.sort(appointmentsList, 
+					new Comparator<Appointment>() {
+	        			public int compare(Appointment a1, Appointment a2) {
+	        			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
+	        		    int ServCompare = a1.getService().compareTo(a2.getService()); 
+	        		    // 2-level comparison using if-else block - 
+	        		    if (ServCompare == 0) { 
+	        		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
+	        		  } else { 
+	        		    	return ServCompare; 
+	        		            }  
+	        		        } 
+	        	 	});
+			if (appointmentsList.isEmpty()) {
+		    	System.out.println("Lista clients vazia!");
+		    	}
+			else {
+				for (Appointment appointment : appointmentsList){     	     	
+					System.out.println(appointment.getService().toString() + " " + appointment.getHealthProfessional().getCategoryName() + " " + appointment.getHealthProfessional().getName());	
+		        }
+		    }
+		
+	}
+	
+	
 	
 	
 }
-
-			

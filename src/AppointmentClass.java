@@ -13,6 +13,19 @@ public class AppointmentClass implements Appointment {
 	public String getClientName() {
 		return this.client.getName();
 	}
+	
+	
+	public Service getService() {
+		return this.service;
+	}
 
+	public HealthProfessional getHealthProfessional() {
+		return this.healthProfessional;
+	}
+
+	@Override
+	public Client getClient() {
+		return this.client;
+	}
    
 }

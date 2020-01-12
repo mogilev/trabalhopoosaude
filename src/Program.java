@@ -52,13 +52,16 @@ public class Program {
 			    break;
 			case "LCF":
 				commandLCF(healthUnit, commands);
+				break;
 			case "LSP":
 				commandLSP(healthUnit, commands);
 			    break;
 			case "LMS":
 				commandLMS(healthUnit, commands);
+				break;
 			case "G":
 				commandG(healthUnit);
+				break;
 			case "L":
 				commandL(healthUnit);
 			    break;
@@ -223,7 +226,8 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 							}
 							else {
 								System.out.println("Categoria válida.");
-								
+								healthUnit.createAppointment(clientName, service, nomeProfissional, category);
+								System.out.println("Cuidado marcado com sucesso");//só para check, depois apagar
 							}
 						}
 //						String[] parameters1 = scanner.nextLine().split(" ");
@@ -273,31 +277,31 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 	
 	private static void commandLCU(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
-		if(healthUnit.hasClient(clientName) == false) {
+		if(!healthUnit.hasClient(clientName)) {
 			System.out.println("Utente inexistente.");
 			}
-		// TODO 
-		/* else if(){
-		 * 			System.out.println("Utente sem cuidados de saúde marcados.");}
-		 * else{
-		 * 	}
-		 * 
-		 */ 
-			}		
+		else {
+			if(!healthUnit.clientHasAppointments(clientName)) {
+				System.out.println("Utente sem cuidados de saúde marcados.");
+			}
+			healthUnit.listClientAppointments(clientName);
+		}
+	}		
+	
 	
 	private static void commandLCF(HealthUnit healthUnit, String[] commands) {
 		String familyName = commands[1];
-		if(healthUnit.familyExists(familyName) == false) {
+		if(!healthUnit.familyExists(familyName)) {
 			System.out.println("Família inexistente.");
 			}
-		// TODO 
-		/* else if(){
-		 * 			System.out.println("Família sem cuidados de saúde marcados.");}
-		 * else{
-		 * 	}
-		 * 
-		 */ 
+		else {
+			if (!healthUnit.familyHasAppointments(familyName)) {
+				System.out.println("Família sem cuidados de saúde marcados.");
 			}
+			healthUnit.listFamilyAppointments(familyName);
+		}
+	}
+	
 	
 	private static void commandLSP(HealthUnit healthUnit, String[] commands) {
 		String professionalCat = commands[1];
