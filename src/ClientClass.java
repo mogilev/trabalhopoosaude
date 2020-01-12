@@ -22,7 +22,7 @@ public class ClientClass extends Person implements Client, Serializable {
 	}
 
 	public String getAgeGroupName() {
-		return this.ageGroup.toString(); //verificar se assim conseguimos "ver" o enum associado ao objecto
+		return this.ageGroup.toString();
 	}
 
 	@Override
@@ -34,7 +34,6 @@ public class ClientClass extends Person implements Client, Serializable {
 	public AgeGroup getAgeGroup() {
 	     return ageGroup;
 	}
-
 
 	
 }

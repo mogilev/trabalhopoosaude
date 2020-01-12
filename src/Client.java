@@ -1,16 +1,16 @@
 
 public interface Client {
 	
-	String getName();
+	String getName(); // Devolve o nome do utente
 	
-	String getAgeGroupName();
+	String getAgeGroupName(); // Devolve, em texto, a faixa etária do utente
 	
-	AgeGroup getAgeGroup();
+	AgeGroup getAgeGroup(); // Devolve a faixa etária do utente
 	
-	Family getFamily();
+	Family getFamily(); // Devolve a família a que o utente pertence
 	
-    String getFamilyName();
+    String getFamilyName(); // Devolve o nome da família a que o utente pertence
 	
-	Family setFamily(Family family);
+	Family setFamily(Family family); // Atribui família(objecto) ao utente
 	 
 }

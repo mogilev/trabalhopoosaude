@@ -1,6 +1,6 @@
 
 public interface Family {
 	
-	String getFamilyName();
+	String getFamilyName(); // Devolve o nome da família
 	
 }

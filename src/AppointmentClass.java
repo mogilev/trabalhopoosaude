@@ -17,7 +17,6 @@ public class AppointmentClass implements Appointment, Serializable {
 		return this.client.getName();
 	}
 	
-	
 	public Service getService() {
 		return this.service;
 	}
@@ -31,4 +30,5 @@ public class AppointmentClass implements Appointment, Serializable {
 		return this.client;
 	}
    
+	
 }

@@ -1,12 +1,12 @@
 
 public interface Appointment {
 	
-	public String getClientName();
+	public String getClientName(); // Devolve o nome do utente
 	
-	public Client getClient();
+	public Client getClient(); // Devolve o utente 
 	
-	public Service getService();
+	public Service getService(); // Devolve o tipo de serviço prestado ao utente
 	
-	public HealthProfessional getHealthProfessional();
+	public HealthProfessional getHealthProfessional(); // Devolve o profissional de saúde responsável pela prestação do serviço
 	
 }

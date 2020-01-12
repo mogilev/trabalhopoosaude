@@ -95,8 +95,7 @@ public class Program implements Serializable {
 			System.out.println("Profissional registado com sucesso.");
 				}
 		}
-			  
-	
+			  	
 	private static void commandRU(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
 		String clientAgeGroup = commands[2];
@@ -107,7 +106,7 @@ public class Program implements Serializable {
 			System.out.println("Faixa etária inexistente.");	
 		}
 		else {
-/*ver se funca int cliente = */healthUnit.createClient(clientName, clientAgeGroup);
+			healthUnit.createClient(clientName, clientAgeGroup);
 			System.out.println("Utente registado com sucesso.");
 				}
 		}
@@ -117,55 +116,52 @@ public class Program implements Serializable {
 		if(healthUnit.familyExists(familyName)) {
 			System.out.println("Família existente.");
 					}
-		else {/* 
-ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
+		else {
+			healthUnit.createFamily(familyName);
 			System.out.println("Família registada com sucesso.");
 				}
 		}
 
-	
 	private static void commandAF(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
 		String familyName = commands[2];
 		if(!healthUnit.hasClient(clientName)) {
 			System.out.println("Utente inexistente.");
-					}
+			}
 		else if(!healthUnit.familyExists(familyName)) {
 			System.out.println("Família inexistente.");	
-		}
+			}
 		else if(healthUnit.hasFamily(clientName)) {
 			System.out.println("Utente pertence a família.");	
-		}
+			}
 		else {
 			healthUnit.joinFamily(clientName, familyName);
 			System.out.println("Utente associado a família.");
-				}
+			}
 		}
 
-	
 	private static void commandDF(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
 		if(healthUnit.hasClient(clientName) == false) {
 			System.out.println("Utente inexistente.");
-					}
+			}
 		else if(!healthUnit.hasFamily(clientName)) {
 			System.out.println("Utente não pertence a família.");	
-		}
+			}
 		else {
 			healthUnit.leaveFamily(clientName);
 			System.out.println("Utente desassociado a família.");
-				}
-		}	
-	
-	
+		}
+	}	
+		
 	private static void commandLP(HealthUnit healthUnit) {
 		if (healthUnit.getProfessionalList().isEmpty()) {
-			System.out.println("Sem profissionais registados");
+			System.out.println("Sem profissionais registados.");
 			}
 		else {
 			healthUnit.listAllProfessionals();
-			}
 		}
+	}
 
 	private static void commandLU(HealthUnit healthUnit) {
 		if (healthUnit.getClientList().isEmpty()) {
@@ -179,14 +175,13 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 	
 	private static void commandLF(HealthUnit healthUnit) { 
 		if (healthUnit.getFamilyList().isEmpty()) {
-			System.out.println("Sem famílias registadas");
+			System.out.println("Sem famílias registadas.");
 		}
 		else {
 			healthUnit.listAllFamilies();
 		}
 	}
-	
-	
+		
 	private static void commandMF(HealthUnit healthUnit, String[] commands) {
 		String familyName = commands[1];
 		if(healthUnit.familyExists(familyName) == false) {
@@ -194,82 +189,42 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		}
 		else {
 			healthUnit.showFamilyMember(familyName);
-	//		healthUnit.testShowAllClients();
 		} 			
 	}
-	
-		
+			
 	private static void commandMC(HealthUnit healthUnit, Scanner scanner, String[] commands) {
 		String clientName = commands[1];
 		if(!healthUnit.hasClient(clientName)) {
 			System.out.println("Utente inexistente.");
 		} 
-		else { //TODO
-//			boolean precConsulta = false; //ver se é por aqui
-//			boolean precCirurgia = false; //ver se é por aqui
-	//		while(scanner.hasNextLine()) {
-		//		String input = scanner.nextLine();
-				String[] parameters = scanner.nextLine().split(" ");
-			//	if(!input.isBlank()) {
-					
+		else { 
+				String[] parameters = scanner.nextLine().split(" ");			
 					String service = parameters[0];
 					if (!healthUnit.serviceExists(service)) {
 						System.out.println("Serviço inexistente.");
 						}
 					else {
-						System.out.println("Serviço existente.");
 						String[] parameters1 = scanner.nextLine().split(" ");
-						String category = parameters1[0]; //antes era "categoria", confirmar se continua a funcionar
+						String category = parameters1[0];
 						String nomeProfissional = parameters1[1];
 						if (!healthUnit.categoryExists(category)) {
 							System.out.println("Categoria inexistente.");
 						}
 						else if (!healthUnit.hasProfessional(category, nomeProfissional)) {
 							System.out.println("Profissional de saúde inexistente.");
-//						}
-					}
+						}
 						else {
-							System.out.println("Profissional de saúde existente.");
 							if (!healthUnit.serviceRulesCheck(service, category)) {
 								System.out.println("Categoria inválida.");
 							}
 							else {
-								System.out.println("Categoria válida.");
 								healthUnit.createAppointment(clientName, service, nomeProfissional, category);
-								System.out.println("Cuidado marcado com sucesso");//só para check, depois apagar
+								System.out.println("Cuidados marcados com sucesso.");
 							}
 						}
 					}
-//						String[] parameters1 = scanner.nextLine().split(" ");
-//						String categoria = parameters1[0];
-//						String nomeProfissional = parameters1[1];
-//						if (!healthUnit.categoryExists(categoria)) {
-//							System.out.println("Categoria inexistente.");
-//						}
-//						else if (!healthUnit.hasProfessional(categoria, nomeProfissional)) {
-//							System.out.println("Profissional de saúde inexistente.");
-//						}
-//						else {
-							// confirmar se o profissional pode realizar o acto 
-							// System.out.println("Categoria inválida.");
-//						if (service == "Consulta" || service == "Enfermagem") {	
-							//marcar consulta aqui
-//							precConsulta = true;
-//						}
-//						else { //cirurgia, onde é necessário verificar precedência
-//							if (precConsulta == true) {
-							// marcar cirurgia aqui
-//								precCirurgia = true;
-//							}
-//						}}
-//					}}
-				
-			//necessário confirmar as precedências
-			 
-				//}
-	}}
-
-
+				}
+			}
 		
 	private static void commandCC(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
@@ -284,7 +239,6 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			}		  
 		}
 	
-	
 	private static void commandLCU(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
 		if(!healthUnit.hasClient(clientName)) {
@@ -297,8 +251,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			healthUnit.listClientAppointments(clientName);
 		}
 	}		
-	
-	
+		
 	private static void commandLCF(HealthUnit healthUnit, String[] commands) {
 		String familyName = commands[1];
 		if(!healthUnit.familyExists(familyName)) {
@@ -325,13 +278,11 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			}
 			else {
 			healthUnit.listProfessionalAppointments(professionalCat, professionalName);
-				}
 			}
+		}
 	}
 	
-	
 	private static void commandLMS(HealthUnit healthUnit, String[] commands) {
-		// TODO 
 		String service = commands[1];
 		if (!healthUnit.serviceExists(service)) {
 			System.out.println("Serviço inexistente.");
@@ -342,11 +293,10 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			}
 			else {
 				healthUnit.listServiceAppointments(service);
-				}
 			}
+		}
 	}
 		
-	
 	private static void commandG(HealthUnit healthUnit) {
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream("file.save");
@@ -372,11 +322,11 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Ocorreu um erro no carregamento.");
-					return;
+			return;
 		}
 	}
-	
-	
+
+
 }	
 
 

@@ -20,7 +20,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		this.familyList = new ArrayList<Family>();
 	}
 	
-
 	@Override
 	public boolean hasProfessional(String professionalCat, String professionalName) {
 		for(HealthProfessional healthProfessional : this.getProfessionalList()) {
@@ -38,7 +37,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
                 return true;
 	}	}
             return false;}
-
 	
 	public int createProfessional(String professionalCat, String professionalName) {
 		Category category = Category.valueOf(professionalCat);
@@ -74,7 +72,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
                 return true; 
                 }
             }
-            return false;
+		return false;
 	}
 
 	@Override
@@ -88,8 +86,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
     	}	
         return false;
     }
-	
-	
+		
 	public int joinFamily(String clientName, String familyName) {
         for(Client client : this.getClientList()) {
             if (client.getName().contentEquals(clientName)){
@@ -102,7 +99,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         }
         return 0;
 	}
-
 	
     public int leaveFamily(String clientName){
         for(Client client : this.getClientList()) {
@@ -111,15 +107,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
             }
         } 
         return 0;
-    }
-	
-    
-    public void showProfessionals(){
-        for (HealthProfessional healthProfessional : this.getProfessionalList()){
-            System.out.println(healthProfessional.getName() + " " + healthProfessional.getCategoryName()); 
-        }
-    }
-    
+    }  
     
 	@Override
 	public int createClient(String clientName, String clientAgeGroup) {
@@ -136,30 +124,25 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		return 0;
 	}
 
-
 	@Override
 	public List<HealthProfessional> getProfessionalList() {
 		return this.healthProfessionalList;
 	}
-
 
 	@Override
 	public List<Client> getClientList() {
 		return this.clientList;
 	}
 
-
 	@Override
 	public List<Appointment> getAppointmentList() {
 		return this.appointmentList;
 	}
 
-
 	@Override
 	public List<Family> getFamilyList() {
 		return this.familyList;
 	}
-
 
 	@Override
 	public boolean serviceExists(String serviceName) {
@@ -171,7 +154,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         return false;
     }
 
-
 	@Override
 	public boolean clientHasAppointments(String clientName) {
 	    	for(Appointment appointment : this.getAppointmentList()) {
@@ -182,10 +164,8 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 	    	return false;
 	    }
 
-
 	@Override
 	public int createAppointment(String clientName, String serviceName, String healthProfessionalName, String healthProfessionalCategory ) {
-		// TODO Auto-generated method stub
 		for (Client client : this.clientList) {
 			if (client.getName().contentEquals(clientName)) {				
 				for (HealthProfessional healthProfessional : this.healthProfessionalList) {
@@ -200,16 +180,16 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		return 0;
 		}
 	
-
 	@Override
 	public int cancelAppointment(String clientName) {
+		List<Appointment> toRemoveList = new ArrayList<Appointment>();
 		for (Appointment appointment : this.getAppointmentList()) {
 			if (appointment.getClientName().contentEquals(clientName))
-				this.appointmentList.remove(appointment);
-		}		
+				toRemoveList.add(appointment);
+		}
+		appointmentList.removeAll(toRemoveList);
 		return 0;
 	}
-
 
 	@Override
 	public void listAllFamilies() {
@@ -219,25 +199,19 @@ public class HealthUnitClass implements HealthUnit, Serializable {
                         return f1.getFamilyName().compareTo(f2.getFamilyName());
                     	}
                 });
-        System.out.println("Lista de Famílias ordenada(método anónimo):");
         this.getFamilyList().forEach((family) -> {
                 System.out.println(family.getFamilyName());
             });
 	}
 
-
 	@Override
 	public void showFamilyMember(String familyName) {
-		// TODO Auto-generated method stub
         List<Client> clients = new ArrayList<Client>();
         for (Family family : this.getFamilyList()){
             if (family.getFamilyName().contentEquals(familyName)){
-//            	System.out.println("Aqui entrou");
                 for (Client client : this.getClientList()){
- //               	System.out.println("Aqui entrou2");
                     if (client.getFamily() == family){
                         clients.add(client);
- //                       System.out.println("Membro da familia encontrado");
                     }
                 }      
             }
@@ -254,27 +228,13 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         			}
         		});
         if (clients.isEmpty()) {
-//        	System.out.println("Lista clients vazia!");
         	}
         else {
-//        	System.out.println("Lista Ordenada");
         	for (Client client : clients){     	     	
             System.out.println(client.getAgeGroupName() + " " + client.getName());	
         	}
         }
 	}
-
-
-	@Override
-	public void testShowAllClients() {
-		for (Client client :  this.getClientList())
-			if (client.getFamily() == null)
-				System.out.println(client.getName());
-			else {
-				System.out.println(client.getName() + " " + client.getFamilyName());
-			}
-	}
-
 
 	@Override
 	public void listAllClients() {
@@ -282,8 +242,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 	        		new Comparator<Client>() {
 	        		public int compare(Client c1, Client c2) {
 	        			int NameCompare = c1.getName().compareTo(c2.getName()); 
-	        		    int AgeCompare = c1.getAgeGroup().compareTo(c2.getAgeGroup()); 
-	        		    // 2-level comparison using if-else block - 
+	        		    int AgeCompare = c1.getAgeGroup().compareTo(c2.getAgeGroup());  
 	        		    if (AgeCompare == 0) { 
 	        		    	return ((NameCompare == 0) ? AgeCompare : NameCompare); 
 	        		  } else { 
@@ -309,7 +268,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         		public int compare(HealthProfessional h1, HealthProfessional h2) {
         			int NameCompare = h1.getName().compareTo(h2.getName()); 
         		    int CatCompare = h1.getCategory().compareTo(h2.getCategory()); 
-        		    // 2-level comparison using if-else block - 
         		    if (CatCompare == 0) { 
         		    	return ((NameCompare == 0) ? CatCompare : NameCompare); 
         		  } else { 
@@ -341,7 +299,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		return false;
 	}
 
-
 	@Override
 	public void listClientAppointments(String clientName) {
 		List<Appointment> appointmentsList = new ArrayList<Appointment>();
@@ -354,8 +311,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 				new Comparator<Appointment>() {
         			public int compare(Appointment a1, Appointment a2) {
         			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
-        		    int ServCompare = a1.getService().compareTo(a2.getService()); 
-        		    // 2-level comparison using if-else block - 
+        		    int ServCompare = a1.getService().compareTo(a2.getService());
         		    if (ServCompare == 0) { 
         		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
         		  } else { 
@@ -364,7 +320,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         		        } 
         	 	});
 		if (appointmentsList.isEmpty()) {
-	    	System.out.println("Lista clients vazia!");
 	    	}
 		else {
 			for (Appointment appointment : appointmentsList){     	     	
@@ -372,7 +327,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 	        }
 	    }			
 	}
-
 
 	@Override
 	public boolean familyHasAppointments(String familyName) {
@@ -383,7 +337,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		}
 		return false;
 	}
-
 
 	@Override
 	public void listFamilyAppointments(String familyName) {
@@ -397,8 +350,7 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 					new Comparator<Appointment>() {
 	        			public int compare(Appointment a1, Appointment a2) {
 	        			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
-	        		    int ServCompare = a1.getService().compareTo(a2.getService()); 
-	        		    // 2-level comparison using if-else block - 
+	        		    int ServCompare = a1.getService().compareTo(a2.getService());  
 	        		    if (ServCompare == 0) { 
 	        		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
 	        		  } else { 
@@ -407,16 +359,13 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 	        		        } 
 	        	 	});
 			if (appointmentsList.isEmpty()) {
-		    	System.out.println("Lista clients vazia!");
 		    	}
 			else {
 				for (Appointment appointment : appointmentsList){     	     	
 					System.out.println(appointment.getService().toString() + " " + appointment.getHealthProfessional().getCategoryName() + " " + appointment.getHealthProfessional().getName());	
 		        }
-		    }
-		
+		    }		
 	}
-
 
 	@Override
 	public boolean professionalHasAppointments(String professionalCat, String professionalName) {
@@ -428,10 +377,8 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 		return false;
 	}
 
-
 	@Override
 	public void listProfessionalAppointments(String professionalCat, String professionalName) {
-		// TODO Auto-generated method stub
 		List<Appointment> appointmentsList = new ArrayList<Appointment>();
 		for (Appointment appointment :  this.getAppointmentList()) {
 			if (appointment.getHealthProfessional().getName().contentEquals(professionalName) && appointment.getHealthProfessional().getCategoryName().contentEquals(professionalCat)) {
@@ -443,7 +390,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         			public int compare(Appointment a1, Appointment a2) {
         			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
         		    int ServCompare = a1.getService().compareTo(a2.getService()); 
-        		    // 2-level comparison using if-else block - 
         		    if (ServCompare == 0) { 
         		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
         		    } else { 
@@ -452,7 +398,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         		        } 
         	 	});
 		if (appointmentsList.isEmpty()) {
-	    	System.out.println("Lista clients vazia!");
 	    	}
 		else {
 			for (Appointment appointment : appointmentsList){     	     	
@@ -460,7 +405,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 	        }	
 		}	
 	}
-
 
 	@Override
 	public boolean serviceHasAppointments(String service) {
@@ -471,7 +415,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
 				}			
 			return false;
 	}
-
 
 	@Override
 	public void listServiceAppointments(String service) {
@@ -486,7 +429,6 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         			public int compare(Appointment a1, Appointment a2) {
         			int NameCompare = a1.getHealthProfessional().getName().compareTo(a2.getHealthProfessional().getName()); 
         		    int CatCompare = a1.getHealthProfessional().getCategory().compareTo(a2.getHealthProfessional().getCategory()); 
-        		    // 2-level comparison using if-else block - 
         		    if (CatCompare == 0) { 
         		    	return ((NameCompare == 0) ? CatCompare : NameCompare); 
         		  } else { 
@@ -495,16 +437,13 @@ public class HealthUnitClass implements HealthUnit, Serializable {
         		        } 
         	 	});
 		if (appointmentsList.isEmpty()) {
-	    	System.out.println("Lista clients vazia!");
 	    	}
 		else {
 			for (Appointment appointment : appointmentsList){     	     	
 				System.out.println(appointment.getHealthProfessional().getCategoryName() + " " + appointment.getHealthProfessional().getName() + " " + appointment.getClientName());	
-	        }
-	    }
-	
-		
-}
+	        	}
+	    	}
+		}
 	
 	
 }
