@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-public class AppointmentClass implements Appointment {
+public class AppointmentClass implements Appointment, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Client client;
 	private Service service;
 	private HealthProfessional healthProfessional;

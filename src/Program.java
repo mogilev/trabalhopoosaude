@@ -1,8 +1,17 @@
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Program {
+public class Program implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args) {
 		HealthUnit healthUnit = new HealthUnitClass();
 		Scanner scanner = new Scanner(System.in);
@@ -198,10 +207,10 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		else { //TODO
 //			boolean precConsulta = false; //ver se é por aqui
 //			boolean precCirurgia = false; //ver se é por aqui
-//			while(scanner.hasNextLine()) {
-//				String input = scanner.nextLine();
+	//		while(scanner.hasNextLine()) {
+		//		String input = scanner.nextLine();
 				String[] parameters = scanner.nextLine().split(" ");
-	//			if(!input.isBlank()) {
+			//	if(!input.isBlank()) {
 					
 					String service = parameters[0];
 					if (!healthUnit.serviceExists(service)) {
@@ -230,6 +239,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 								System.out.println("Cuidado marcado com sucesso");//só para check, depois apagar
 							}
 						}
+					}
 //						String[] parameters1 = scanner.nextLine().split(" ");
 //						String categoria = parameters1[0];
 //						String nomeProfissional = parameters1[1];
@@ -255,7 +265,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 //					}}
 				
 			//necessário confirmar as precedências
-			 } 
+			 
 				//}
 	}}
 
@@ -338,13 +348,35 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 		
 	
 	private static void commandG(HealthUnit healthUnit) {
-		
-		// TODO 
-
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream("file.save");
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(healthUnit);
+			objectOutputStream.close();
+			fileOutputStream.close();
+			System.out.println("Unidade de saúde gravada.");
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+			System.out.println("Ocorreu um erro na gravação");
 			}
+		}
 	
 	private static void commandL(HealthUnit healthUnit) {
-		// TODO 
+		try {
+			FileInputStream fileInputStream = new FileInputStream("file.save");
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			healthUnit = (HealthUnit)objectInputStream.readObject();
+			objectInputStream.close();
+			fileInputStream.close();
+			System.out.println("Unidade de saúde carregada.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Ocorreu um erro no carregamento.");
+					return;
+		}
 	}
-}	
 	
+	
+}	
+
+

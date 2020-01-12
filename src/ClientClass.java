@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-public class ClientClass extends Person implements Client {
+public class ClientClass extends Person implements Client, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Family family;
 	private AgeGroup ageGroup;
 	
