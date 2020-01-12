@@ -306,17 +306,19 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 	private static void commandLSP(HealthUnit healthUnit, String[] commands) {
 		String professionalCat = commands[1];
 		String professionalName = commands[2];		
-		if(healthUnit.hasProfessional(professionalCat, professionalName) == false) {
+		if(!healthUnit.hasProfessional(professionalCat, professionalName)) {
 			System.out.println("Profissional de saúde inexistente.");
 			}
-		// TODO 
-		/* else if(){
-		 * 			System.out.println("Profissional de saúde sem marcações.");}
-		 * else{
-		 * 	}
-		 * 
-		 */ 
+		else {
+			if (!healthUnit.professionalHasAppointments(professionalCat, professionalName)) {
+				System.out.println("Profissional de saúde sem marcações.");
 			}
+			else {
+			healthUnit.listProfessionalAppointments(professionalCat, professionalName);
+				}
+			}
+	}
+	
 	
 	private static void commandLMS(HealthUnit healthUnit, String[] commands) {
 		// TODO 

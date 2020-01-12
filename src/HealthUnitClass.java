@@ -413,8 +413,50 @@ public class HealthUnitClass implements HealthUnit {
 		    }
 		
 	}
-	
-	
+
+
+	@Override
+	public boolean professionalHasAppointments(String professionalCat, String professionalName) {
+			for(Appointment appointment : this.getAppointmentList()) {
+				if(appointment.getHealthProfessional().getName().contentEquals(professionalName) && appointment.getHealthProfessional().getCategoryName().contentEquals(professionalCat)){
+					return true; 
+				}     
+			}
+		return false;
+	}
+
+
+	@Override
+	public void listProfessionalAppointments(String professionalCat, String professionalName) {
+		// TODO Auto-generated method stub
+		List<Appointment> appointmentsList = new ArrayList<Appointment>();
+		for (Appointment appointment :  this.getAppointmentList()) {
+			if (appointment.getHealthProfessional().getName().contentEquals(professionalName) && appointment.getHealthProfessional().getCategoryName().contentEquals(professionalCat)) {
+				appointmentsList.add(appointment);
+			}
+		}
+		Collections.sort(appointmentsList, 
+				new Comparator<Appointment>() {
+        			public int compare(Appointment a1, Appointment a2) {
+        			int NameCompare = a1.getClientName().compareTo(a2.getClientName()); 
+        		    int ServCompare = a1.getService().compareTo(a2.getService()); 
+        		    // 2-level comparison using if-else block - 
+        		    if (ServCompare == 0) { 
+        		    	return ((NameCompare == 0) ? ServCompare : NameCompare); 
+        		    } else { 
+        		    	return ServCompare; 
+        		            }  
+        		        } 
+        	 	});
+		if (appointmentsList.isEmpty()) {
+	    	System.out.println("Lista clients vazia!");
+	    	}
+		else {
+			for (Appointment appointment : appointmentsList){     	     	
+				System.out.println(appointment.getService().toString() + " " + appointment.getClientName());	
+	        }	
+		}	
+	}
 	
 	
 }

@@ -34,6 +34,8 @@ public interface HealthUnit {
     
     boolean familyHasAppointments (String clientName);
     
+    boolean professionalHasAppointments (String professionalCat, String professionalName);
+    
     boolean serviceRulesCheck(String service, String category);
     
     int createAppointment(String clientName,String serviceName,String healthProfessionalName, String healthProfessionalCategory );
@@ -49,6 +51,8 @@ public interface HealthUnit {
     void listClientAppointments(String clientName);
     
 	void listFamilyAppointments(String familyName);
+	
+	void listProfessionalAppointments(String professionalCat, String professionalName);
     
     void showFamilyMember(String familyName);
     
