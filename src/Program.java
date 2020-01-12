@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Collections;
+import java.util.List;
 
 public class Program {
 	public static void main(String[] args) {
@@ -38,6 +40,7 @@ public class Program {
 			    break;
 			case "MF":
 				commandMF(healthUnit, commands);
+				break;
 			case "MC":
 				commandMC(healthUnit, scanner, commands);
 			    break;
@@ -112,7 +115,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 	private static void commandAF(HealthUnit healthUnit, String[] commands) {
 		String clientName = commands[1];
 		String familyName = commands[2];
-		if(healthUnit.hasClient(clientName) == false) {
+		if(!healthUnit.hasClient(clientName)) {
 			System.out.println("Utente inexistente.");
 					}
 		else if(!healthUnit.familyExists(familyName)) {
@@ -154,32 +157,40 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 
 	private static void commandLU(HealthUnit healthUnit) {
 		// TODO 
-		/* 
-		 * usando o isEmpty
-		 * System.out.println("Sem utentes registados.");
-		 */
+		if (healthUnit.getClientList().isEmpty()) {
+			System.out.println("Sem utentes registados.");
 		}
+		else {
+			healthUnit.listAllClients();
+		}
+	}
 	
-	private static void commandLF(HealthUnit healthUnit) {
-		// TODO 
-		/* 
-		 * usando o isEmpty
-		 * System.out.println("Sem famílias registadas.");
-		 */
+	
+	private static void commandLF(HealthUnit healthUnit) { 
+		if (healthUnit.getFamilyList().isEmpty()) {
+			System.out.println("Sem famílias registadas");
 		}
+		else {
+			healthUnit.listAllFamilies();
+		}
+	}
+	
 	
 	private static void commandMF(HealthUnit healthUnit, String[] commands) {
 		String familyName = commands[1];
 		if(healthUnit.familyExists(familyName) == false) {
 			System.out.println("Família inexistente.");
 		}
-		// TODO 
-
-		}
+		else {
+			healthUnit.showFamilyMember(familyName);
+	//		healthUnit.testShowAllClients();
+		} 			
+	}
 	
+		
 	private static void commandMC(HealthUnit healthUnit, Scanner scanner, String[] commands) {
 		String clientName = commands[1];
-		if(healthUnit.hasClient(clientName) == false) {
+		if(!healthUnit.hasClient(clientName)) {
 			System.out.println("Utente inexistente.");
 		} 
 		else { //TODO
@@ -293,6 +304,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			}
 		
 	private static void commandG(HealthUnit healthUnit) {
+		
 		// TODO 
 
 			}

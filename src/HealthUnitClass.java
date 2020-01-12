@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HealthUnitClass implements HealthUnit {
@@ -45,7 +47,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean hasClient(String clientName) {
         for(Client client : this.getClientList()) {
-            if(client.getName() == clientName){
+            if(client.getName().contentEquals(clientName)){
             return true; 
             }
         }
@@ -65,7 +67,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean familyExists(String familyName) {
 		for(Family family : this.getFamilyList()) {
-            if(family.getFamilyName() == familyName){
+            if(family.getFamilyName().contentEquals(familyName)){
                 return true; 
                 }
             }
@@ -75,7 +77,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean hasFamily(String clientName) {
     	for(Client client : this.getClientList()) {
-            if(client.getName()== clientName){
+            if(client.getName().contentEquals(clientName)){
                 if (client.getFamily() != null){
                     return true; 
                 }     
@@ -87,9 +89,9 @@ public class HealthUnitClass implements HealthUnit {
 	
 	public int joinFamily(String clientName, String familyName) {
         for(Client client : this.getClientList()) {
-            if (client.getName() == clientName){
+            if (client.getName().contentEquals(clientName)){
                 for (Family family : this.getFamilyList()){
-                    if (family.getFamilyName() == familyName){
+                    if (family.getFamilyName().contentEquals(familyName)){
                         client.setFamily(family); 
                     }
                 }
@@ -216,8 +218,102 @@ public class HealthUnitClass implements HealthUnit {
 		
 	}
 
-	
+
+	@Override
+	public void listAllFamilies() {
+        Collections.sort(familyList, 
+                new Comparator<Family>(){
+                    public int compare(Family f1, Family f2) {
+                        return f1.getFamilyName().compareTo(f2.getFamilyName());
+                    	}
+                });
+        System.out.println("Lista de Famílias ordenada(método anónimo):");
+        this.getFamilyList().forEach((family) -> {
+                System.out.println(family.getFamilyName());
+            });
+	}
+
+
+	@Override
+	public void showFamilyMember(String familyName) {
+		// TODO Auto-generated method stub
+        List<Client> clients = new ArrayList<Client>();
+        for (Family family : this.getFamilyList()){
+            if (family.getFamilyName().contentEquals(familyName)){
+//            	System.out.println("Aqui entrou");
+                for (Client client : this.getClientList()){
+ //               	System.out.println("Aqui entrou2");
+                    if (client.getFamily() == family){
+                        clients.add(client);
+ //                       System.out.println("Membro da familia encontrado");
+                    }
+                }      
+            }
+        }
+        
+        Collections.sort(clients, 
+        		new Comparator<Client>() {
+        			public int compare(Client c1, Client c2) {
+        	        if(c1.getAgeGroup().equals(c2.getAgeGroup())){
+        	            return c1.getName().compareTo(c2.getName());
+        	        }   
+        	        else {
+        	            return c1.getAgeGroup().compareTo(c2.getAgeGroup());
+        	        	}
+        			}
+        		});
+        if (clients.isEmpty()) {
+//        	System.out.println("Lista clients vazia!");
+        	}
+        else {
+//        	System.out.println("Lista Ordenada");
+        	for (Client client : clients){     	     	
+            System.out.println(client.getAgeGroupName() + " " + client.getName());	
+        	}
+        }
+	}
+
+
+	@Override
+	public void testShowAllClients() {
+		for (Client client :  this.getClientList())
+			if (client.getFamily() == null)
+				System.out.println(client.getName());
+			else {
+				System.out.println(client.getName() + " " + client.getFamilyName());
+			}
+	}
+
+
+	@Override
+	public void listAllClients() {
+	        Collections.sort(clientList, 
+	        		new Comparator<Client>() {
+	        		public int compare(Client c1, Client c2) {
+	        			int NameCompare = c1.getName().compareTo(c2.getName()); 
+	        		    int AgeCompare = c1.getAgeGroup().compareTo(c2.getAgeGroup()); 
+	        		    // 2-level comparison using if-else block - 
+	        		    if (AgeCompare == 0) { 
+	        		    	return ((NameCompare == 0) ? AgeCompare : NameCompare); 
+	        		  } else { 
+	        		    	return AgeCompare; 
+	        		            }  
+	        		        } 
+	        	 	}      			
+	        );
+	        for (Client client :  this.getClientList()){
+	        String nome = client.getName();
+	        if (this.hasFamily(nome)){
+	            System.out.println(client.getFamilyName() + " " + client.getAgeGroup() + " " + client.getName());
+	        	}
+	        else{
+	            System.out.println(client.getAgeGroup() + " " + client.getName());
+	        	}
+	        }
+	    }
 
 	
-		
+	
 }
+
+			

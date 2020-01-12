@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public interface HealthUnit {
 
@@ -35,6 +37,16 @@ public interface HealthUnit {
     int cancelAppointment(String clientName);
     
     void listarProTeste();
+    
+    void listAllFamilies();
+    
+    void listAllClients();
+    
+    void showFamilyMember(String familyName);
+    
+    void testShowAllClients(); //verificar se é necessário
+    
+    
     
 	// Manuseamento das listas:
 	

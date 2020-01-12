@@ -3,9 +3,13 @@ public interface Client {
 	
 	String getName();
 	
-	String getAgeGroup();
+	String getAgeGroupName();
+	
+	AgeGroup getAgeGroup();
 	
 	Family getFamily();
+	
+    String getFamilyName();
 	
 	Family setFamily(Family family);
 	 

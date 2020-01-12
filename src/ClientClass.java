@@ -18,8 +18,18 @@ public class ClientClass extends Person implements Client {
         return this.family;
 	}
 
-	public String getAgeGroup() {
+	public String getAgeGroupName() {
 		return this.ageGroup.toString(); //verificar se assim conseguimos "ver" o enum associado ao objecto
+	}
+
+	@Override
+	public String getFamilyName() {
+		return family.getFamilyName();
+	}
+
+	@Override
+	public AgeGroup getAgeGroup() {
+	     return ageGroup;
 	}
 
 
