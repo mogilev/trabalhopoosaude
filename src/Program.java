@@ -322,16 +322,21 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 	
 	private static void commandLMS(HealthUnit healthUnit, String[] commands) {
 		// TODO 
-		/* if(){
-		 * 		System.out.println("Serviço inexistente");}
-		 * else if(){
-		 * 			System.out.println("Serviço sem marcações");}
-		 * else{
-		 * 	}
-		 * 
-		 */ 
+		String service = commands[1];
+		if (!healthUnit.serviceExists(service)) {
+			System.out.println("Serviço inexistente.");
 			}
+		else {
+			if (!healthUnit.serviceHasAppointments(service)) {
+				System.out.println("Serviço sem marcações.");
+			}
+			else {
+				healthUnit.listServiceAppointments(service);
+				}
+			}
+	}
 		
+	
 	private static void commandG(HealthUnit healthUnit) {
 		
 		// TODO 

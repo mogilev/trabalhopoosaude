@@ -457,6 +457,51 @@ public class HealthUnitClass implements HealthUnit {
 	        }	
 		}	
 	}
+
+
+	@Override
+	public boolean serviceHasAppointments(String service) {
+			for (Appointment appointment :  this.getAppointmentList()) {
+				if (appointment.getService().toString().contentEquals(service)) {
+					return true;
+					}
+				}			
+			return false;
+	}
+
+
+	@Override
+	public void listServiceAppointments(String service) {
+		List<Appointment> appointmentsList = new ArrayList<Appointment>();
+		for (Appointment appointment :  this.getAppointmentList()) {
+			if (appointment.getService().toString().contentEquals(service)) {
+				appointmentsList.add(appointment);
+			}
+		}
+		Collections.sort(appointmentsList, 
+				new Comparator<Appointment>() {
+        			public int compare(Appointment a1, Appointment a2) {
+        			int NameCompare = a1.getHealthProfessional().getName().compareTo(a2.getHealthProfessional().getName()); 
+        		    int CatCompare = a1.getHealthProfessional().getCategory().compareTo(a2.getHealthProfessional().getCategory()); 
+        		    // 2-level comparison using if-else block - 
+        		    if (CatCompare == 0) { 
+        		    	return ((NameCompare == 0) ? CatCompare : NameCompare); 
+        		  } else { 
+        		    	return CatCompare; 
+        		            }  
+        		        } 
+        	 	});
+		if (appointmentsList.isEmpty()) {
+	    	System.out.println("Lista clients vazia!");
+	    	}
+		else {
+			for (Appointment appointment : appointmentsList){     	     	
+				System.out.println(appointment.getHealthProfessional().getCategoryName() + " " + appointment.getHealthProfessional().getName() + " " + appointment.getClientName());	
+	        }
+	    }
+	
+		
+}
 	
 	
 }
