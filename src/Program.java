@@ -151,7 +151,7 @@ ver se funca int familyCode =*/ healthUnit.createFamily(familyName);
 			System.out.println("Sem profissionais registados");
 			}
 		else {
-			healthUnit.listarProTeste();
+			healthUnit.listAllProfessionals();
 			}
 		}
 

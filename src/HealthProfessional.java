@@ -3,7 +3,8 @@ public interface HealthProfessional {
 
 	String getName();
 	
-	String getCategory();
+	Category getCategory();
 	
+	String getCategoryName();
 	
 }

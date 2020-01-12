@@ -21,7 +21,7 @@ public class HealthUnitClass implements HealthUnit {
 	@Override
 	public boolean hasProfessional(String professionalCat, String professionalName) {
 		for(HealthProfessional healthProfessional : this.getProfessionalList()) {
-            if(healthProfessional.getName().equals(professionalName) && healthProfessional.getCategory().contentEquals(professionalCat)){
+            if(healthProfessional.getName().equals(professionalName) && healthProfessional.getCategoryName().contentEquals(professionalCat)){
                 return true;
                 }
             }
@@ -113,7 +113,7 @@ public class HealthUnitClass implements HealthUnit {
     
     public void showProfessionals(){
         for (HealthProfessional healthProfessional : this.getProfessionalList()){
-            System.out.println(healthProfessional.getName() + " " + healthProfessional.getCategory()); 
+            System.out.println(healthProfessional.getName() + " " + healthProfessional.getCategoryName()); 
         }
     }
     
@@ -186,7 +186,7 @@ public class HealthUnitClass implements HealthUnit {
 		for (Client client : this.clientList) {
 			if (client.getName() == clientName) {				
 				for (HealthProfessional healthProfessional : this.healthProfessionalList) {
-					if(healthProfessional.getName() == healthProfessionalName && healthProfessional.getCategory() == healthProfessionalCategory) {
+					if(healthProfessional.getName() == healthProfessionalName && healthProfessional.getCategoryName() == healthProfessionalCategory) {
 						Service service = Service.valueOf(serviceName);
 						Appointment appointment = (Appointment) new AppointmentClass(client, service, healthProfessional);
 						appointmentList.add((Appointment) appointment);			
@@ -205,17 +205,6 @@ public class HealthUnitClass implements HealthUnit {
 				this.appointmentList.remove(appointment);
 		}		
 		return 0;
-	}
-
-
-	@Override
-	public void listarProTeste() {
-		for (HealthProfessional healthProfessional : this.getProfessionalList()) {
-			System.out.println(healthProfessional.getName() + healthProfessional.getCategory());
-		}		
-
-	
-		
 	}
 
 
@@ -249,14 +238,13 @@ public class HealthUnitClass implements HealthUnit {
                     }
                 }      
             }
-        }
-        
+        }        
         Collections.sort(clients, 
         		new Comparator<Client>() {
         			public int compare(Client c1, Client c2) {
         	        if(c1.getAgeGroup().equals(c2.getAgeGroup())){
         	            return c1.getName().compareTo(c2.getName());
-        	        }   
+        	        	}   
         	        else {
         	            return c1.getAgeGroup().compareTo(c2.getAgeGroup());
         	        	}
@@ -299,8 +287,7 @@ public class HealthUnitClass implements HealthUnit {
 	        		    	return AgeCompare; 
 	        		            }  
 	        		        } 
-	        	 	}      			
-	        );
+	        	 });
 	        for (Client client :  this.getClientList()){
 	        String nome = client.getName();
 	        if (this.hasFamily(nome)){
@@ -311,6 +298,27 @@ public class HealthUnitClass implements HealthUnit {
 	        	}
 	        }
 	    }
+	
+	
+	public void listAllProfessionals() {
+        Collections.sort(this.healthProfessionalList, 
+        		new Comparator<HealthProfessional>() {
+        		public int compare(HealthProfessional h1, HealthProfessional h2) {
+        			int NameCompare = h1.getName().compareTo(h2.getName()); 
+        		    int CatCompare = h1.getCategory().compareTo(h2.getCategory()); 
+        		    // 2-level comparison using if-else block - 
+        		    if (CatCompare == 0) { 
+        		    	return ((NameCompare == 0) ? CatCompare : NameCompare); 
+        		  } else { 
+        		    	return CatCompare; 
+        		            }  
+        		        } 
+        	 	});
+        for (HealthProfessional healthprofessional :  this.getProfessionalList()){
+        	System.out.println(healthprofessional.getCategoryName() + " " + healthprofessional.getName());
+        	}
+	}
+    
 
 	
 	

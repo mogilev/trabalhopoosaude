@@ -36,11 +36,11 @@ public interface HealthUnit {
 
     int cancelAppointment(String clientName);
     
-    void listarProTeste();
-    
     void listAllFamilies();
     
     void listAllClients();
+    
+    void listAllProfessionals();
     
     void showFamilyMember(String familyName);
     
@@ -68,5 +68,9 @@ public interface HealthUnit {
 	
 	List<Family> getFamilyList();
 	
+	
+	// Serializable
+	
+
 	
 }
